@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Crucial para que el celular respete la escala del navegador -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Web Mobile-First</title>
+  <style>
+    /* RESET Y VARIABLES GLOBALES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: system-ui, -apple-system, Roboto, sans-serif;
+      min-height: 100vh;
+      padding-top: 70px; /* Espacio para la barra fija */
+    }
+
+    /* ENCABEZADO Y BARRA SUPERIOR */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #161b22;
+      border-bottom: 1px solid #30363d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.25rem;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    /* BOTÓN HAMBURGUESA (Target de toque amplio) */
+    .menu-btn {
+      background: none;
+      border: none;
+      color: #c9d1d9;
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      line-height: 1;
+    }
+
+    .menu-btn:active {
+      background-color: #21262d;
+    }
+
+    /* MENÚ DESPLEGABLE MÓVIL */
+    .nav-menu {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 60px);
+      background-color: #0d1117;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 99;
+    }
+
+    /* Clase activa para mostrar el menú */
+    .nav-menu.open {
+      transform: translateX(0);
+    }
+
+    /* ENLACES DEL MENÚ (Optimizado para pulgares) */
+    .nav-link {
+      color: #f0f6fc;
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      text-align: center;
+      transition: background 0.2s ease;
+    }
+
+    .nav-link:active {
+      background-color: #1f6feb;
+      border-color: #388bfd;
+      color: #ffffff;
+    }
+
+    /* CONTENIDO PRINCIPAL DE PRUEBA */
+    .main-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .main-content h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #f0f6fc;
+    }
+
+    .main-content p {
+      color: #8b949e;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <header class="header">
+    <a href="#" class="logo">Mi App</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+  </header>
+
+  <!-- NAVEGACIÓN MÓVIL -->
+  <nav class="nav-menu" id="navMenu">
+    <a href="#inicio" class="nav-link">Inicio</a>
+    <a href="#proyectos" class="nav-link">Proyectos</a>
+    <a href="#servicios" class="nav-link">Servicios</a>
+    <a href="#contacto" class="nav-link">Contacto</a>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <main class="main-content">
+    <h1>¡Bienvenido!</h1>
+    <p>Abre el menú en la esquina superior derecha para navegar. Diseñado 100% para pantallas móviles.</p>
+  </main>
+
+  <!-- LÓGICA DE APERTURA/CIERRE DE MENÚ -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Alternar menú al tocar el botón
+    menuBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      menuBtn.textContent = navMenu.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Cerrar menú automáticamente al hacer clic en cualquier opción
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        menuBtn.textContent = '☰';
+      });
+    });
+  </script>
+</body>
+</html>
